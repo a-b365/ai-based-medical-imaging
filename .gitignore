@@ -4,4 +4,6 @@ dhuli*
 Dhulikhel*
 Extracted*
 PID*
-archive
+archive/
+.venv/
+models/
