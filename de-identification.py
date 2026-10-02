@@ -28,7 +28,7 @@ for root, dirs, files in os.walk(SOURCE_ROOT):
             #     while os.path.exists(dst_file):
             #         dst_file = os.path.join(
             #             DESTINATION,
-            #             f"{stem}_{counter}{suffix}"
+            #             f"{stem}_{counter}{suffix}""
             #         )
             #         counter += 1
 

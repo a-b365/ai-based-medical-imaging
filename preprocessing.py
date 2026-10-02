@@ -1,8 +1,10 @@
 import pydicom
 import numpy as np
 import cv2
+import os
 import matplotlib.pyplot as plt
 from PIL import Image
+from pathlib import Path
 
 
 def preprocess_cxr_dicom(dicom_path):
@@ -21,7 +23,7 @@ def preprocess_cxr_dicom(dicom_path):
 
 
     # Handle MONOCHROME1
-    if ds.PhotometricInterpretation == "MONOCHROME1":
+    if ds.PhotometricInterpretation == "MONOCHRO ME1":
         image = np.max(image) - image
 
 
@@ -111,29 +113,35 @@ def preprocess_cxr_jpeg(jpeg_path):
 
 if __name__ == "__main__":
 
-    image = preprocess_cxr_jpeg(r"Chest X-rays Jpeg/1.2.840.113564.54.20260201094458264.8004.jpg")
+    path = Path(r"PID Removal from February 20 2026")
+    for dcm in os.listdir(r"PID Removal from February 20 2026"):
+        
+        image = preprocess_cxr_dicom()
+        image = Image.fromarray(image)
+        image.save(f"Enhanced Images/{str(image)}")
+        
 
-    # Image
-    plt.subplot(1, 2, 1)
-    plt.imshow(image, cmap="gray")
-    plt.title("DICOM image after preprocessing")
-    plt.axis("off")
+    # # Image
+    # plt.subplot(1, 2, 1)
+    # plt.imshow(image, cmap="gray")
+    # plt.title("DICOM image after preprocessing")
+    # plt.axis("off")
 
-    plt.subplot(1, 2, 2)
-    pixels = image.ravel()
+    # plt.subplot(1, 2, 2)
+    # pixels = image.ravel()
 
-    # Histogram
-    plt.hist(
-        pixels,
-        bins=256,
-        range=(
-            pixels.min(),
-            pixels.max()
-        )
-    )
+    # # Histogram
+    # plt.hist(
+    #     pixels,
+    #     bins=256,
+    #     range=(
+    #         pixels.min(),
+    #         pixels.max()
+    #     )
+    # )
 
-    plt.title("Histogram")
-    plt.xlabel("Pixel Intensity")
-    plt.ylabel("Frequency")
-    plt.grid(alpha=0.25)
-    plt.show()
+    # plt.title("Histogram")
+    # plt.xlabel("Pixel Intensity")
+    # plt.ylabel("Frequency")
+    # plt.grid(alpha=0.25)
+    # plt.show()
